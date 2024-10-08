@@ -21,7 +21,7 @@ with open('vehicle_speed_log.asc', 'w') as log_file:
     for i, speed in enumerate(vehicle_speed_values):
         # Ensure the signal name is correct
         try:
-            encoded_message = message.encode({'S01PID0D_VehicleSpeed': speed})  # Corrected signal name
+            encoded_message = message.encode({'S01PID0D_VehicleSpeed': speed})
             timestamp = timestamps[i]
             log_file.write(f"{timestamp} 1 {message.frame_id:X} Tx d {len(encoded_message)} {' '.join(f'{b:02X}' for b in encoded_message)}\n")
         except cantools.database.errors.EncodeError as e:
