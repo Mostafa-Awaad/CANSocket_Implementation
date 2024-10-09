@@ -43,4 +43,4 @@ def get_vehicle_speed():
 
 if __name__ == '__main__':
     # Change the host to '0.0.0.0' to allow access from any device on the network
-    app.run(host='192.168.0.193', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
