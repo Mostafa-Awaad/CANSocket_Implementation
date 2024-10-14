@@ -35,4 +35,5 @@ BS_:
 BU_:
 
 BO_ 2024 OBD2: 8 Vector__XXX
- SG_ S01PID0D_VehicleSpeed m13 : 31|8@0+ (1,0) [0|255] "km/h" Vector__XXX
+ SG_ S01PID0D_VehicleSpeed m13 : 63|8@0+ (1,0) [0|255] "km/h" Vector__XXX
+ SG_ S01PID05_EngineCoolantTemp m5 : 55|8@0+ (1,-40) [-40|215] "degC" Vector__XXX
