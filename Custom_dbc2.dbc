@@ -40,4 +40,5 @@ BO_ 2024 OBD2: 8 Vector__XXX
  SG_ S01PID4D_BatterySOH m3 : 47|8@0+ (0.392156862745098, 0) [0|100] "%" Vector__XXX
  SG_ S01PID4E_BatterySOC m4 : 39|8@0+ (0.392156862745098, 0) [0|100] "%" Vector__XXX
  SG_ S01PID2F_FuelTankLevel m47 : 31|8@0+ (0.392156862745098,0) [0|100] "%" Vector__XXX
- SG_ S01PID21_DistanceMILOn m33 : 23|16@0+ (1,0) [0|65535] "km" Vector__XXX
+ SG_ S01PID21_DistanceMILOn m33 : 15|16@0+ (1,0) [0|65535] "km" Vector__XXX
+ SG_ S01PID04_CalcEngineLoad m4 : 7|8@0+ (0.39216,0) [0|100] "%" Vector__XXX
