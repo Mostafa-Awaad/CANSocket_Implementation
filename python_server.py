@@ -4,16 +4,15 @@ import os
 
 app = Flask(__name__)
 
+# Path to your CAN log file
 asc_file_path = 'vehicle_speed_log.asc'
 
-# Shared data containers for threads to fill
-#vehicle_speed_data = []
-#engine_coolant_temp_data = []
 
 # Function to extract and decode vehicle speed from CAN log data
 def extract_vehicle_speed():
     global vehicle_speed_data
     vehicle_speed_data = []
+    # Check if the file exists
     if not os.path.exists(asc_file_path):
         return []
 
@@ -21,12 +20,19 @@ def extract_vehicle_speed():
         can_log_content = file.readlines()
 
         for line in can_log_content:
+            # Split the log line into its components
             parts = line.strip().split()
+            # Check if the message ID is 7E8 and has 1 bytes of data
             if len(parts) >= 9 and parts[3] == '7E8':
-                speed_hex = parts[14]
+                # Extract the 8th byte (hexadecimal) which represents the vehicle speed
+                speed_hex = parts[14] # 8th byte corresponds to parts[14] in zero-indexed split
+                # Convert hex to decimal (max 255 km/h)
                 speed_kmh = int(speed_hex, 16)
+                # Append timestamp and decoded speed (timestamp in parts[1])
                 vehicle_speed_data.append((float(parts[1]), speed_kmh))
     return vehicle_speed_data
+
+
 # Function to extract and decode engine coolant temperature from CAN log data
 def extract_engine_coolant_temp():
     global engine_coolant_temp_data
