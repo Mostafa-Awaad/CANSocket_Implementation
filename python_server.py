@@ -11,6 +11,7 @@ asc_file_path = 'vehicle_speed_log.asc'
 # Function to extract and decode vehicle speed from CAN log data
 def extract_vehicle_speed():
     global vehicle_speed_data
+    #Array to store vehicle speed
     vehicle_speed_data = []
     # Check if the file exists
     if not os.path.exists(asc_file_path):
