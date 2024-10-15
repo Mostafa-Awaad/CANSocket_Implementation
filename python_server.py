@@ -36,6 +36,7 @@ def extract_vehicle_speed():
 # Function to extract and decode engine coolant temperature from CAN log data
 def extract_engine_coolant_temp():
     global engine_coolant_temp_data
+    #Array to store Temperature of Engine coolant
     engine_coolant_temp_data = []
     if not os.path.exists(asc_file_path):
         return []
