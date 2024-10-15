@@ -58,11 +58,6 @@ vehicle_speed_data = extract_vehicle_speed()
 # Load the extracted engine coolant temperature data
 engine_coolant_temp_data = extract_engine_coolant_temp()
 
-def get_vehicle_speed():
-    return jsonify(vehicle_speed_data)
-
-def get_engine_coolant_temp():
-    return jsonify(engine_coolant_temp_data)
 
 # Flask route to fetch data
 @app.route('/car_dashboard_data', methods=['GET'])
