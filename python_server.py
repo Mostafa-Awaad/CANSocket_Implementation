@@ -54,12 +54,33 @@ def extract_engine_coolant_temp():
     return engine_coolant_temp_data
 
 
+# Function to extract and decode battery_SOH from CAN log data
+def extract_battery_SOH():
+    global battery_soh_data
+    #Array to store Temperature of Engine coolant
+    battery_soh_data = []
+    if not os.path.exists(asc_file_path):
+        return []
+
+    with open(asc_file_path, 'r') as file:
+        can_log_content = file.readlines()
+
+        for line in can_log_content:
+            parts = line.strip().split()
+            if len(parts) >= 9 and parts[3] == '7E8':
+                battery_soh_hex = parts[12]
+                battery_soh_percent = int(battery_soh_hex, 16)
+                battery_soh_data.append((float(parts[1]), battery_soh_percent))
+    return battery_soh_data
+
+
 # Load the extracted vehicle speed data
 vehicle_speed_data = extract_vehicle_speed()
 
 # Load the extracted engine coolant temperature data
 engine_coolant_temp_data = extract_engine_coolant_temp()
 
+battery_soh_data = extract_battery_SOH()
 
 # Flask route to fetch data
 @app.route('/car_dashboard_data', methods=['GET'])
@@ -67,18 +88,23 @@ def home():
     # Create and start threads for concurrent task execution
     thread1 = threading.Thread(target=extract_vehicle_speed)
     thread2 = threading.Thread(target=extract_engine_coolant_temp)
+    thread3 = threading.Thread(target=extract_battery_SOH)
+
     thread1.start()
     thread2.start()
+    thread3.start()
 
     # Wait for both threads to complete
     thread1.join()
     thread2.join()
+    thread3.join()
 
     # Return the combined data in JSON format
     return jsonify({
         'vehicle_speed': vehicle_speed_data,
-        'engine_coolant_temp': engine_coolant_temp_data
+        'engine_coolant_temp': engine_coolant_temp_data,
+        'battery_soh_percnet': battery_soh_data
     })
 
 if __name__ == '__main__':
-    app.run(host='192.168.43.202', port=5000, debug=True)
+    app.run(host='192.168.25.53', port=5000, debug=True)
