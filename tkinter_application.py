@@ -51,10 +51,16 @@ def update_car_data():
             speed_label.config(text=f"Normal Speed: {speed} km/h")
             speed_image_label.config(image=normal_image_resized)
 
+        if battery_soh < 70:
+            battery_soh_label.config(text=f"Battery Shoud be Replaced \n SOH :{round (battery_soh,2)} %")
+           
+        else:
+            battery_soh_label.config(text=f"SOH: {round (battery_soh, 2)} %")
+
         # Update engine coolant temp label
         coolant_temp_label.config(text=f"Coolant Temp: {coolant_temp - 40} °C")
 
-        battery_soh_label.config(text=f"SOH: {round (battery_soh * 0.392156862745098, 2)} %")
+        
         
         update_car_data.index += 1
     else:
