@@ -69,7 +69,7 @@ def extract_battery_SOH():
             parts = line.strip().split()
             if len(parts) >= 9 and parts[3] == '7E8':
                 battery_soh_hex = parts[12]
-                battery_soh_percent = int(battery_soh_hex, 16)
+                battery_soh_percent = int(battery_soh_hex, 16) * 0.392156862745098
                 battery_soh_data.append((float(parts[1]), battery_soh_percent))
     return battery_soh_data
 
