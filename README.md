@@ -39,8 +39,7 @@ To use this script, ensure you have the following installed:
 
 Install the necessary Python libraries using `pip`:
 
-```bash
-pip install scapy python-can
+`pip install scapy python-can`
 
 ### Resources: 
 1. https://canlogger.csselectronics.com/canedge-getting-started/ce2/log-file-tools/?_gl=1*6ogs5b*_ga*NTgyMzA4Njg5LjE3Mjg5MDM4NDQ.*_ga_YS7M75XF5N*MTcyOTAwMjA5Ny42LjEuMTcyOTAwMzE1MS4wLjAuMA..
