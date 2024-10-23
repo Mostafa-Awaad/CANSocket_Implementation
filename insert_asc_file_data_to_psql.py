@@ -1,5 +1,6 @@
 import psycopg2
 
+# parsing the asc file into parts to make it easy to access the desired data
 def parse_asc_file(file_path):
     with open(file_path, 'r') as file:
         lines = file.readlines()
@@ -29,20 +30,22 @@ def parse_asc_file(file_path):
     
     return log_data
 
+# Insert the parsed log_data into the created database
 def insert_to_postgresql(log_data):
     conn = psycopg2.connect(
         dbname="car_log_db",
-        user="postgres",  # Replace with your PostgreSQL username
-        password="Mmk@3040112",  # Replace with your PostgreSQL password
+        user="postgres",  
+        password="Mmk@3040112",  
         host="localhost"
     )
     cursor = conn.cursor()
     #Create a Table 
+    #Using BYTEA data type to store binary strings in the database
     cursor.execute('''CREATE TABLE IF NOT EXISTS car_logs(
                    message_number SERIAL PRIMARY KEY,
                    timestamp DOUBLE PRECISION,
                    can_message_id BYTEA,
-                   data_frame BYTEA,
+                   data_frame BYTEA, 
                    signal_type VARCHAR(3)
                    );
                    ''')
