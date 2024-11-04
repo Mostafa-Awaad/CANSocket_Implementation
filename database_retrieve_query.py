@@ -3,8 +3,8 @@ import binascii
 def retrieve_from_postgresql():
     conn = psycopg2.connect(
         dbname="car_log_db",
-        user="postgres",  
-        password="Mmk@3040112",  
+        user="YourUserName",  
+        password="YourPass",  
         host="localhost"
     )
     cursor = conn.cursor()
