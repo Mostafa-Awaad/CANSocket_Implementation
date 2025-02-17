@@ -11,7 +11,7 @@
 
 ---
 
-## 1. CAN Socket Implementation with Scapy and python-can:
+## 1. CAN Socket Implementation with Scapy and python-can
 
 This repository contains a Python script `can_socket_implem.py` that integrates Scapy with `python-can` to simulate a virtual CAN (Controller Area Network) environment. The script demonstrates how to create virtual CAN interfaces, sniff CAN FD (Flexible Data-rate) frames, and send CAN FD packets with extended identifiers using virtual CAN sockets.
 
@@ -141,7 +141,7 @@ The script sends a CAN FD extended frame from `vcan0`. The CAN FD frame is gener
 Two threads are created to run the sniffer and sender functions concurrently. The threads are then joined to ensure the main process waits for both threads to complete before exiting.
 
 ---
-## 2. Tkinter-based vehicle monitoring application:
+## 2. Tkinter-based vehicle monitoring application
 
 ## Table of Contents
 - [About](#-about)
