@@ -7,8 +7,10 @@
 
 # Two projects 
 1. [CAN Socket Implementation with Scapy and python-can](#1.-can-socket-implementation-with-scapy-and-python-can)
-2. [Tkinter-based vehicle monitoring application](#2.-Tkinter-based-vehicle-monitoring-application:)
-   
+2. [Tkinter-based vehicle monitoring application](#2.-Tkinter-based-vehicle-monitoring-application)
+
+---
+
 ## 1. CAN Socket Implementation with Scapy and python-can:
 
 This repository contains a Python script `can_socket_implem.py` that integrates Scapy with `python-can` to simulate a virtual CAN (Controller Area Network) environment. The script demonstrates how to create virtual CAN interfaces, sniff CAN FD (Flexible Data-rate) frames, and send CAN FD packets with extended identifiers using virtual CAN sockets.
@@ -153,11 +155,11 @@ The Tkinter-based vehicle monitoring application is a vehicle monitoring solutio
 ---
 ### ✨ Features
 
-- **Tkinter application**:
+- **Tkinter application `tkinter_application.py`**:
   - Fetches vehicle speed, engine coolant temp, battery SOH, and other data from the Flask server.
   - Updates the GUI asynchronously.
   - Updates speed, engine coolant temp, battery SOH, and other signals and their descriptive images based on fetched data.
-- **Python Script for creating ASC log file**:
+- **Python script for creating ASC log file `dbc_to_asc.py`**:
   - Processes a **DBC (Database CAN)** file to decode CAN messages.
     ##### CAN DBC file (CAN Database) syntax:
       ```DBC
@@ -184,16 +186,19 @@ The Tkinter-based vehicle monitoring application is a vehicle monitoring solutio
 
   - Converts the DBC data into an **ASC (ASCII log)** file based on generated random data (100 values for each signal) .
 
-- **Python Flask-based Server**:
+- **Python Flask-based server `python_server.py`**:
   - Contains set of functions, which is resposible for:
     - Extracting the desired signal like vehicle speed.
     - Processing the signal value depending on its scale & offset in the DBC file.
   - Handles each different signal type in its own thread and sending over the flask server.
 
+- **Demo Script for postgreSQL-based database integration `insert_asc_file_data_to_psql.py`:**
+   - Parses the ASC file into parts to make it easy to access the desired data.
+   - Inserts the parsed log_data into the created postgreSQL database.
 
 ---
 ### 🔗 Workflow
-1. **Data Processing**:
+1. **Data processing**:
    - A Python script decodes vehicle data using a **DBC file** and generates an **ASC file** with 100 random signal values for each signal type.
 
 2. **Data extracing and sending**:
