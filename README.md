@@ -5,10 +5,13 @@
 [![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-4169E1?logo=postgresql&logoColor=white)](https://postgresql.org)
 [![CAN DBC](https://img.shields.io/badge/Database-CAN_DBC-lightgrey?logo=database&logoColor=blue)](https://www.w3schools.com/sql/)
 
-# Two projects 
+---
 
-1. [CAN Socket Implementation with Scapy and python-can](#can-socket-implementation)
-2. [Tkinter-based vehicle monitoring application](#-tkinter-based-vehicle-monitoring-application)
+# Table of Contents
+
+1. [CAN Socket Implementation with Scapy and python-can](#can-socket-implementation-with-scapy-and-python-can)
+2. [Tkinter-based vehicle monitoring application](#tkinter-based-vehicle-monitoring-application)
+
 
 ---
 
