@@ -6,8 +6,8 @@
 [![CAN DBC](https://img.shields.io/badge/Database-CAN_DBC-lightgrey?logo=database&logoColor=blue)](https://www.w3schools.com/sql/)
 
 # Two projects 
-1. [CAN Socket Implementation with Scapy and python-can](#1.-can-socket-implementation-with-scapy-and-python-can)
-2. [Tkinter-based vehicle monitoring application](#2.-tkinter-based-vehicle-monitoring-application)
+1. [CAN Socket Implementation with Scapy and python-can](#-1.-can-socket-implementation-with-scapy-and-python-can)
+2. [Tkinter-based vehicle monitoring application](#-2.-tkinter-based-vehicle-monitoring-application)
 
 ---
 
