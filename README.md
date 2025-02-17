@@ -7,7 +7,7 @@
 
 ---
 
-# Table of Contents
+# Two projects
 
 1. [CAN Socket Implementation with Scapy and python-can](#can-socket-implementation-with-scapy-and-python-can)
 2. [Tkinter-based vehicle monitoring application](#tkinter-based-vehicle-monitoring-application)
