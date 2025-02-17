@@ -7,7 +7,7 @@
 
 # Two projects 
 1. [CAN Socket Implementation with Scapy and python-can](#1.-can-socket-implementation-with-scapy-and-python-can)
-2. [Tkinter-based vehicle monitoring application](#2.-Tkinter-based-vehicle-monitoring-application)
+2. [Tkinter-based vehicle monitoring application](#2.-tkinter-based-vehicle-monitoring-application)
 
 ---
 
