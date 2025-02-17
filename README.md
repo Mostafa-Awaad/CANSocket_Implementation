@@ -1,10 +1,15 @@
 [![Python](https://img.shields.io/badge/Language-Python-3776AB?logo=python&logoColor=white)](https://www.python.org)
+![Flask](https://img.shields.io/badge/-Flask-000000?style=flat&logo=flask&logoColor=white)&nbsp;
 [![CAN Socket](https://img.shields.io/badge/Protocol-CAN%20Socket-00A9E0?logo=can&logoColor=white)](https://en.wikipedia.org/wiki/Controller_area_network)
 [![CAN FD](https://img.shields.io/badge/Protocol-CAN%20FD-00A9E0?logo=can&logoColor=white)](https://en.wikipedia.org/wiki/Controller_area_network#CAN_FD)
 [![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-4169E1?logo=postgresql&logoColor=white)](https://postgresql.org)
 [![CAN DBC](https://img.shields.io/badge/Database-CAN_DBC-lightgrey?logo=database&logoColor=blue)](https://www.w3schools.com/sql/)
 
-## 1. CAN Socket Implementation with Scapy and python-can
+# Two projects 
+1. [CAN Socket Implementation with Scapy and python-can](#1.-can-socket-Implementation-with-Scapy-and-python-can:)
+2. [Tkinter-based vehicle monitoring application](#2.-Tkinter-based-vehicle-monitoring-application:)
+   
+## 1. CAN Socket Implementation with Scapy and python-can:
 
 This repository contains a Python script `can_socket_implem.py` that integrates Scapy with `python-can` to simulate a virtual CAN (Controller Area Network) environment. The script demonstrates how to create virtual CAN interfaces, sniff CAN FD (Flexible Data-rate) frames, and send CAN FD packets with extended identifiers using virtual CAN sockets.
 
@@ -141,17 +146,18 @@ Two threads are created to run the sniffer and sender functions concurrently. Th
 - [Features](#-features)
 - [Workflow](#-workflow)
 - [Technology Stack](#-technology-stack)
-- [Usage](#-usage)
-- [Output](#-output)
 
 ### 🚘 About
-The application displays vehicle signals after being parsed from the asc file to the PostgreSQL-based database in tkinter-based GUI.
+The Tkinter-based vehicle monitoring application is a vehicle monitoring solution designed using Python for the user interface and for backend data processing. It provides an interactive dashboard that streams various car signals using dynamic gauges for each signal.
 
 ---
 ### ✨ Features
 
-   
-- **Backend Python Script**:
+- **Tkinter application**:
+  - Fetches vehicle speed, engine coolant temp, battery SOH, and other data from the Flask server.
+  - Updates the GUI asynchronously.
+  - Updates speed, engine coolant temp, battery SOH, and other signals and their descriptive images based on fetched data.
+- **Python Script for creating ASC log file**:
   - Processes a **DBC (Database CAN)** file to decode CAN messages.
     ##### CAN DBC file (CAN Database) syntax:
       ```DBC
@@ -176,23 +182,30 @@ The application displays vehicle signals after being parsed from the asc file to
       | **km/h**                       | Measuring unit.                                                                                                    |
       | **Vector__XXX**                | Receiver name.                                                                                                     |
 
-  - Converts the DBC data into an **ASC (ASCII log)** file containing continuously generated rows of data.
-  - Automatically uploads the parsed data from the ASC file to a **Supabase database table** in real-time.
+  - Converts the DBC data into an **ASC (ASCII log)** file based on generated random data (100 values for each signal) .
 
+- **Python Flask-based Server**:
+  - Contains set of functions, which is resposible for:
+    - Extracting the desired signal like vehicle speed.
+    - Processing the signal value depending on its scale & offset in the DBC file.
+  - Handles each different signal type in its own thread and sending over the flask server.
 
 
 ---
 ### 🔗 Workflow
 1. **Data Processing**:
-   - A Python script decodes vehicle data using a **DBC file** and generates an **ASC file** with continuous vehicle signal data.
+   - A Python script decodes vehicle data using a **DBC file** and generates an **ASC file** with 100 random signal values for each signal type.
 
-2. **Data Storage**:
-  
-     ![image](https://github.com/user-attachments/assets/570afd29-4497-4fed-aa04-e9dafaec141b)
+2. **Data extracing and sending**:
+      - Vehicle data is extracted using different functions, each function is responsible for extracting specific signal
+      - Each extracted signal is handled in its own thread.
+      - The extracted data is jsonified and sent over a flask server.
 
 3. **Display**:
-   - The Flutter application fetches the **latest row** from the Supabase table.
-   - Displays the corresponding signals dynamically using **gauges** for an engaging and informative user.
+   - The Tkinter application fetches the latest vehicle data sent from the flask server.
+   - The data is updated corresponding to the current index.
+   - The GUI is updated every 1 second.
+   - Displays the corresponding signals in different windows for each signal with descriptive images for each state.
        <p align="center">
         <img src="https://github.com/Mostafa-Awaad/CANSocket_Implementation/blob/main/GUI_Image3.JPG?raw=true" alt="Screenshot_1737551439" style="width: 70%; margin-right: 30px;" />
         
@@ -204,94 +217,10 @@ The application displays vehicle signals after being parsed from the asc file to
 ---
 
 ### 🛠 Technology Stack
-- **Frontend**: Flutter (Dart)
-- **Backend**: Python
-  - **Python Libraries**:
-      ```
-      - supabase,
-      - cantools
-      - binascii
-      - base64
-      - os
-      - time
-      - datetime
-      - random
-       ```
-- **Database**: Supabase (PostgreSQL-based)
-  - **Environment Variables For Security**:
-     - `URL`: Supabase project URL.
-     - `KEY`: Supabase project anon key.
-- **Data Format**: DBC to ASC file conversion
-  - **Files**:
-     - `Custom_dbc2.dbc`: The DBC file containing CAN message definitions.
-- **Communication**: Real-time database updates and streaming.
-
----
-
-### 📱 Usage
-
-1. **Setup Environment**:
-   - Set `URL` and `KEY` environment variables for Supabase credentials.
-2. **Run the Script**:
-   - The script will:
-     - Simulate CAN messages.
-     - Log them into `vehicle_speed_log.asc`.
-     - Parse the last logged message in the .asc file and store it in the Supabase database.
-3. **Database Table**:
-   - Ensure the Supabase table `car_logs_2` has the following schema:
-     ```sql
-     CREATE TABLE car_logs_2 (
-         message_number TEXT,
-         timestamp DOUBLE PRECISION,
-         can_message_id BYTEA,
-         data_frame BYTEA,
-         signal_type TEXT
-     );
-     ```
----
-
-### 📁 Output
-
-- **ASC File**:
-  - Example of logged data:
-    ```
-    1   1700000000.123456   1   123ABC   Tx -   8   01 02 03 04 05 06 07 08
-    ```
-- **Database Record**:
-  - Example of inserted data:
-    ```json
-    {
-        "message_number": "1",
-        "timestamp": 1700000000.123456,
-        "can_message_id": "Base64_encoded_binary_data",
-        "data_frame": "Base64_encoded_binary_data",
-        "signal_type": "Tx"
-    }
-    ```
-
-
-
----
-
-### Implementing flask server:
-
-### Dealing with PostgreSQL Shell (psql)
-### **Create a database for a CAN message**
-- `CREATE DATABASE car_log_db`
-### **Create a table for storing CAN signals**
-- ```
-  CREATE TABLE car_logs (
-       message_number SERIAL PRIMARY KEY,
-       timestamp DOUBLE PRECISION,
-       can_message_id BYTEA, // use bytea data type to store CAN message ID in the format of binary strings in the database
-       data BYTEA        // to store CAN data frame in the format of binary strings in the database
-   );
-  ```
-### **Adding signal_type column**
-- ```
-  ALTER TABLE car_logs
-  ADD signal_type VARCHAR(3);
-  ```
+- Python.
+- Flask.
+- CAN DBC.
+- CAN FD.
 ---
 ### Resources: 
 1. https://canlogger.csselectronics.com/canedge-getting-started/ce2/log-file-tools/?_gl=1*6ogs5b*_ga*NTgyMzA4Njg5LjE3Mjg5MDM4NDQ.*_ga_YS7M75XF5N*MTcyOTAwMjA5Ny42LjEuMTcyOTAwMzE1MS4wLjAuMA..
